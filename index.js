@@ -26,16 +26,26 @@ function linuxCmdline(cmdline)
   {
     arg = arg.split('=')
 
-    var key = arg.shift()
-    var val = true
+    // Get key node
+    var keypath = arg.shift().split('.')
+    var key     = keypath.shift()
+    var node    = result
+    for(; keypath.length; key = keypath.shift())
+    {
+      node[key] = node[key] || {}
+      node = node[key]
+    }
 
+    // Get value
+    var val = true
     if(arg.length)
     {
       val = arg.join('=').split(',')
       if(val.length === 1) val = val[0]
     }
 
-    result[key] = val
+    // Store value
+    node[key] = val
   })
 
   return result
