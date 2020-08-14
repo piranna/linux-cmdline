@@ -19,3 +19,18 @@ const expected =
 const result = linuxCmdline(cmdline)
 
 deepStrictEqual(result, expected)
+
+
+// Don't pollute prototype
+const result2 = linuxCmdline('__proto__.polluted=foo')
+const expected2 =
+{
+  ['__proto__']:
+  {
+    polluted: 'foo'
+  }
+}
+
+deepStrictEqual(result2, expected2)
+
+deepStrictEqual({}.__proto__.polluted, undefined)
