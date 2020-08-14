@@ -1,3 +1,36 @@
+function reducer(result, arg)
+{
+  arg = arg.split('=')
+
+  // Get key node
+  const keypath = arg.shift().split('.')
+
+  let key = keypath.shift()
+  let node = result
+
+  while(keypath.length)
+  {
+    node[key] = node[key] || {}
+    node = node[key]
+
+    key = keypath.shift()
+  }
+
+  // Get value
+  let val = true
+  if(arg.length)
+  {
+    val = arg.join('=').split(',')
+    if(val.length === 1) val = val[0]
+  }
+
+  // Store value
+  node[key] = val
+
+  return result
+}
+
+
 /**
  * This function takes the `cmdline` from `/proc/cmdline` **showed below in
  * the example** and splits it into key/value pairs
@@ -20,35 +53,7 @@
  */
 function linuxCmdline(cmdline)
 {
-  var result = {}
-
-  cmdline.trim().split(' ').forEach(function(arg)
-  {
-    arg = arg.split('=')
-
-    // Get key node
-    var keypath = arg.shift().split('.')
-    var key     = keypath.shift()
-    var node    = result
-    for(; keypath.length; key = keypath.shift())
-    {
-      node[key] = node[key] || {}
-      node = node[key]
-    }
-
-    // Get value
-    var val = true
-    if(arg.length)
-    {
-      val = arg.join('=').split(',')
-      if(val.length === 1) val = val[0]
-    }
-
-    // Store value
-    node[key] = val
-  })
-
-  return result
+  return cmdline.trim().split(' ').reduce(reducer, {})
 }
 
 

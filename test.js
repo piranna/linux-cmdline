@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const deepStrictEqual = require('assert').deepStrictEqual
+const {deepStrictEqual} = require('assert')
 
 const linuxCmdline = require('.')
 
@@ -16,6 +16,6 @@ const expected =
   f: [ 'g', 'h' ]
 }
 
-var result = linuxCmdline(cmdline)
+const result = linuxCmdline(cmdline)
 
 deepStrictEqual(result, expected)
