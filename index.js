@@ -1,5 +1,5 @@
 /**
- * This functions takes the `cmdline` from `/proc/cmdline` **showed below in
+ * This function takes the `cmdline` from `/proc/cmdline` **showed below in
  * the example** and splits it into key/value pairs
  * @access private
  * @param  {String} cmdline This string contains information about the
@@ -8,13 +8,13 @@
  *                          if there is no value for the key then its just true.
  *                          **For more Information, look at the example**
  * @example
- *   var cmdline1 = 'initrd=\\initramfs-linux.img root=PARTUUID=someuuidhere\n'
+ *   var cmdline1 = 'initrd=/initramfs-linux.img root=PARTUUID=someuuidhere\n'
  *   var cmdline2 = 'somevar root=PARTUUID=someuuidhere\n'
  *
  * 	 var res1 = linuxCmdline(cmdline1)
  * 	 var res2 = linuxCmdline(cmdline2)
  * 	 console.log(res1)
- * 	 //-> { initrd: '\\initramfs-linux.img',root: 'PARTUUID=someuuidhere' }
+ * 	 //-> { initrd: '/initramfs-linux.img',root: 'PARTUUID=someuuidhere' }
  * 	 console.log(res2)
  * 	 //-> { somevar: true, root: 'PARTUUID=someuuidhere' }
  */
